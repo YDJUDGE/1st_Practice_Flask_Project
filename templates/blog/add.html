@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Post here
+{% endblock %}
+
+{% block body %}
+    <h1> Create a new post </h1>
+
+    <div>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.title.label(class="form-label")}}
+            {{ form.title(size=20, class="form-control") }}
+
+            {{ form.hidden_tag() }}
+            {{ form.description.label(class="form-label")}}
+            {{ form.description(size=20, class="form-control") }}
+
+            {% if form.title.errors %}
+                <ul class="errors">
+                    {% for error in form.title.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <button type="submit" class="mt-2 btn btn-primary">
+                    Добавить пост
+                </button>
+
+        </form>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Post # {{ post.id }}
+{% endblock %}
+
+{% block body %}
+<h1 xmlns="http://www.w3.org/1999/html">
+    Заголовок - {{ post.title }}
+    <br>
+    Описание:
+    <br>
+    {{ post.description }}
+</h1>
+<br>
+Просмотры: {{ views }}
+<br>
+
+{% if post.comments %}
+    <h2>Комменатрии:</h2>
+    {% for comment in post.comments %}
+        <p>{{ comment.body }}</p>
+        <p><small> Дата: {{ comment.data.strftime('%d-%m-%Y %H:%M:%S') }} </small></p>
+    {% endfor %}
+{% else %}
+    <p>Здесь ничего нет</p>
+{% endif %}
+<br>
+<h2> Добавить комментарий </h2>
+    <form method="post" action="{{ url_for('post_app.add_comment', post_id=post.id) }}">
+    <textarea name="comment_body" rows="3" required></textarea>
+    <button type="submit" class="btn btn-primary"> Добавить комментарий</button>
+    </form>
+<br>
+
+
+<a class="btn btn-danger" href="{{ url_for('post_app.delete', post_id=post.id) }}" role="button">Delete</a>
+
+<br>
+{% endblock %}

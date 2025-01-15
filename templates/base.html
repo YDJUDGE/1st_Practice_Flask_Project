@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {% block title %} {% endblock %} </title>
+</head>
+<body>
+    {% block body %} {% endblock %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        {% for name, label in [('home', 'Home'), ('post_app.list', 'Post list'), ('post_app.add', 'Add post')] %}
+          {% set path = url_for(name) %}
+          <li class="nav-item">
+              <a class="nav-link {{ 'active' if request.path == path else '' }}" aria-current="page" href="{{ path }}">
+                  {{ label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'primary' if category == 'message' else category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+</div>
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
+
+</body>
+&copy; 2024
+</html>

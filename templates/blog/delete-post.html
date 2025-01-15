@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete post {{ post.name }}
+{% endblock %}
+
+{% block body %}
+<h1>Confirm delete Post #{{ post.id }} <code>{{ post.title }}</code> </h1>
+
+<br>
+<div>
+    <form method="post">
+        <div class="btn-group" role="group">
+            <a class="btn btn-secondary"
+            href="{{ url_for('post_app.detail', post_id = post.id) }}" role="button">Cancel</a>
+
+            <span class="mx-1"></span>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</div>
+<br>
+
+{% endblock %}
+
